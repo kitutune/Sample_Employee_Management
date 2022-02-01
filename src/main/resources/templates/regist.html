@@ -5,12 +5,10 @@
 <!-- Required meta tags -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body style="display: flex; justify-content: center">
-
 	<div class="card" style="width: 30rem">
 		<div class="container mt-4">
 			<div class="panel panel-default">
@@ -47,7 +45,6 @@
 								<td><label for="">性別</label></td>
 							</tr>
 							<tr>
-
 								<td>
 									<div th:each="item : ${genderList}" class="form-check-inline">
 										<input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}" th:field="*{gender}" />

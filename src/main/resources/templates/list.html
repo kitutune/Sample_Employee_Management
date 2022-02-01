@@ -2,25 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org/">
 <head>
 <meta charset="UTF-8">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <title>Insert title here</title>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 16px;
+}
+
+table th, table td {
+	border: 1px solid #ddd;
+	padding: 6px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+table td {
+	background-color: #F2F2F2;
+	color: black;
+}
+
+table th {
+	/* background-color: #F2F2F2; */
+
+}
+</style>
 </head>
 <body>
-
-			<a th:href="@{/regist}" class="btn btn-navy"> <i class="bi bi-pencil-square"></i> 新規登録はこちら
-								</a>
-
 	<div class="row">
 		<div class="col">
-
 			<div class="card shadow">
 				<div class="card-header">
-					<h6 class="text-navy my-2">社員一覧</h6>
+					<h2 class="text-navy my-2">社員一覧</h2>
+					<br /> <a th:href="@{/regist}" type="button" class="btn btn-warning font-weight-bold"> 新規登録はこちら </a>
 				</div>
 				<div class="card-body">
-
 					<div th:if="${employees.size() == 0}">該当データがありません</div>
-
-					<table th:if="${employees.size() > 0}" class="table table-bordered">
+					<table th:if="${employees.size() > 0}" class="table table-bordered panel-heading btn-primary">
 						<thead>
 							<tr>
 								<th>社員番号</th>
@@ -35,6 +55,8 @@
 								<th>（月）</th>
 								<th>（日）</th>
 								<th>コメント</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -51,18 +73,15 @@
 								<td th:text="*{jdate_month}"></td>
 								<td th:text="*{jdate_day}"></td>
 								<td th:text="*{comment}"></td>
-								<td>
-								<a th:href="@{/edit/{id}(id=*{user_id})}" class="btn btn-navy"> <i class="bi bi-pencil-square"></i> 編集
-								</a>
-
-								<a th:href="@{/delete/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-trash-fill"></i> 削除
+								<td><a th:href="@{/edit/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-pencil-square"></i> 編集
+								</a></td>
+								<td><a th:href="@{/delete/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-trash-fill"></i> 削除
 								</a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </body>
