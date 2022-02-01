@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GetGenderList {
-    public Map<Integer, String> getGender () {
-        Map<Integer, String> gender = new HashMap<> ();
-        gender.put (1, "男");
-        gender.put (2, "女");
-        gender.put (3, "Other");
+    public Map<String, String> getGender () {
+        Map<String, String> gender = new HashMap<> ();
+        gender.put ("男", "男");
+        gender.put ("女", "女");
+        gender.put ("Other", "Other");
         return gender;
     }
 }
