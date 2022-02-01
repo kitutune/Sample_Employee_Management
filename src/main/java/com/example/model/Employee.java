@@ -34,18 +34,18 @@ public class Employee {
     // セレクトボックス
     // 生年月日：年、月、日で入力分けている
     // @NotBlank
-    private int date_of_birth_year;
+    private int birth_year;
     // @NotBlank
-    private int date_of_birth_month;
+    private int birth_month;
     // @NotBlank
-    private int date_of_birth_day;
+    private int birth_day;
     // 入社日：生年月日と同じ仕様
     // @NotBlank
-    private int joining_date_year;
+    private int jdate_year;
     // @NotBlank
-    private int joining_date_month;
+    private int jdate_month;
     // @NotBlank
-    private int joining_date_day;
+    private int jdate_day;
     // コメント
     // 最大値を１００文字制限
     // @NotBlank
