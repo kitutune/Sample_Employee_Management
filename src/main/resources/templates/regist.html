@@ -16,7 +16,7 @@
 			<div class="panel panel-default">
 				<h4 class="panel-heading btn-primary" style="padding: 10px; text-align: center; height: 50px; margin-bottom: 20px;">登録フォーム</h4>
 				<div class="panel-body">
-					<form class="form-horizontal" th:action="@{registed}" th:object="${employee}" method="post">
+					<form class="form-horizontal" th:action="@{regist}" th:object="${employee}" method="post">
 						<table>
 							<tr>
 								<td>
@@ -47,6 +47,7 @@
 								<td><label for="">性別</label></td>
 							</tr>
 							<tr>
+
 								<td>
 									<div th:each="item : ${genderList}" class="form-check-inline">
 										<input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}" th:field="*{gender}" />
@@ -60,23 +61,23 @@
 											<tr>
 												<td><label for="">生年月日</label></td>
 											</tr>
-											<tr th:if="${ employee.date_of_birth_year ==null}">
-												<td><select id="birthYear" name="date_of_birth_year">
+											<tr th:if="${ employee.birth_year ==0}">
+												<td><select id="birthYear" name="birth_year">
 														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="date_of_birth_month">
+												</select> 年 <select id="birthMonth" name="birth_month">
 														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == 1}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="date_of_birth_day">
+												</select> 月 <select id="birthYear" name="birth_day">
 														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
 											</tr>
 											<!-- 誕生日にデータが入力されていればこちらを表示 -->
-											<tr th:if="${ employee.date_of_birth_year !=null}">
-												<td><select id="birthYear" name="date_of_birth_year">
-														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == employee.date_of_birth_year}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="date_of_birth_month">
-														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == employee.date_of_birth_month}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="date_of_birth_day">
-														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == employee.date_of_birth_day}" th:inline="text">[[${day}]]</option>
+											<tr th:if="${ employee.birth_year !=0}">
+												<td><select id="birthYear" name="birth_year">
+														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == employee.birth_year}" th:inline="text">[[${year}]]</option>
+												</select> 年 <select id="birthMonth" name="birth_month">
+														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == employee.birth_month}" th:inline="text">[[${month}]]</option>
+												</select> 月 <select id="birthYear" name="birth_day">
+														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == employee.birth_day}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
 											</tr>
 										</table>
@@ -90,23 +91,23 @@
 											<tr>
 												<td><label for="">入社日</label></td>
 											</tr>
-											<tr th:if="${ employee.joining_date_year ==null}">
-												<td><select id="birthYear" name="joining_date_year">
+											<tr th:if="${ employee.jdate_year ==0}">
+												<td><select id="birthYear" name="jdate_year">
 														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="joining_date_month">
+												</select> 年 <select id="birthMonth" name="jdate_month">
 														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == 1}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="joining_date_day">
+												</select> 月 <select id="birthYear" name="jdate_day">
 														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
 											</tr>
 											<!-- 入社日が入力されていた場合こちらを反映する -->
-											<tr th:if="${ employee.joining_date_year !=null}">
-												<td><select id="birthYear" name="joining_date_year">
-														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == employee.joining_date_year}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="joining_date_month">
-														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == employee.joining_date_month}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="joining_date_day">
-														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == employee.joining_date_day}" th:inline="text">[[${day}]]</option>
+											<tr th:if="${ employee.jdate_year !=0}">
+												<td><select id="birthYear" name="jdate_year">
+														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == employee.jdate_year}" th:inline="text">[[${year}]]</option>
+												</select> 年 <select id="birthMonth" name="jdate_month">
+														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == employee.jdate_month}" th:inline="text">[[${month}]]</option>
+												</select> 月 <select id="birthYear" name="jdate_day">
+														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == employee.jdate_day}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
 											</tr>
 										</table>
