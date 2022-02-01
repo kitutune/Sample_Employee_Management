@@ -29,7 +29,6 @@ public class EmployeeController {
     public String getList (Model model) {
         // JpaRepositoryのメソッドであるfindAll()を使ってDBに保存されているemployeeのデータを持ってくる
         model.addAttribute ("employees", repository.findAll ());
-        System.out.println ("社員数は" + repository.findAll ().size ());
         return "list";
     }
     
@@ -91,7 +90,7 @@ public class EmployeeController {
         return "edit";
     }
     
-    @PostMapping ("/edited")
+    @PostMapping ("/edit/edit")
     public String editEmployee (@Validated @ModelAttribute Employee employee, BindingResult result, Model model) {
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", gGenderList.getGender ());
@@ -106,7 +105,7 @@ public class EmployeeController {
         }
         
         repository.save (employee);
-        return "list";
+        return "redirect:/";
     }
     
     @GetMapping ("/delete/{id}")
