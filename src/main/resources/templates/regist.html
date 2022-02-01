@@ -7,11 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body style="display: flex; justify-content: center">
-	<!-- ここから -->
 
 	<div class="card" style="width: 30rem">
 		<div class="container mt-4">
@@ -23,11 +21,8 @@
 							<tr>
 								<td>
 									<div class="form-group">
-
-
 										<label for="name">社員番号</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_id}">
 										<div class="invalid-feedback" th:errors="*{user_id}"></div>
-
 										<small id="helpId" class="text-muted">半角の数字で入力してください</small>
 									</div>
 								</td>
@@ -35,8 +30,6 @@
 							<tr>
 								<td>
 									<div class="form-group">
-
-
 										<label for="name">氏名</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_name}">
 										<div class="invalid-feedback" th:errors="*{user_name}"></div>
 									</div>
@@ -46,12 +39,10 @@
 								<td><label for="name">Email</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{email}">
 									<div class="invalid-feedback" th:errors="*{email}"></div> <small id="helpId" class="text-muted">xxx@xxx形式で入力してください</small></td>
 							</tr>
-
 							<tr>
 								<td><label for="name">電話番号</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{phone_number}">
 									<div class="invalid-feedback" th:errors="*{phone_number}"></div> <small id="helpId" class="text-muted">半角の数字のみでスペースを空けずに入力してください</small></td>
 							</tr>
-
 							<tr>
 								<td><label for="">性別</label></td>
 							</tr>
@@ -62,7 +53,6 @@
 									</div>
 								</td>
 							</tr>
-
 							<tr>
 								<td>
 									<div class="form-group">
@@ -70,8 +60,7 @@
 											<tr>
 												<td><label for="">生年月日</label></td>
 											</tr>
-
-											<tr>
+											<tr th:if="${ employee.date_of_birth_year ==null}">
 												<td><select id="birthYear" name="date_of_birth_year">
 														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
 												</select> 年 <select id="birthMonth" name="date_of_birth_month">
@@ -79,14 +68,21 @@
 												</select> 月 <select id="birthYear" name="date_of_birth_day">
 														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
-
+											</tr>
+											<!-- 誕生日にデータが入力されていればこちらを表示 -->
+											<tr th:if="${ employee.date_of_birth_year !=null}">
+												<td><select id="birthYear" name="date_of_birth_year">
+														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == employee.date_of_birth_year}" th:inline="text">[[${year}]]</option>
+												</select> 年 <select id="birthMonth" name="date_of_birth_month">
+														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == employee.date_of_birth_month}" th:inline="text">[[${month}]]</option>
+												</select> 月 <select id="birthYear" name="date_of_birth_day">
+														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == employee.date_of_birth_day}" th:inline="text">[[${day}]]</option>
+												</select> 日</td>
 											</tr>
 										</table>
 									</div>
-
 								</td>
 							</tr>
-
 							<tr>
 								<td>
 									<div class="form-group">
@@ -94,7 +90,7 @@
 											<tr>
 												<td><label for="">入社日</label></td>
 											</tr>
-											<tr>
+											<tr th:if="${ employee.joining_date_year ==null}">
 												<td><select id="birthYear" name="joining_date_year">
 														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
 												</select> 年 <select id="birthMonth" name="joining_date_month">
@@ -102,21 +98,25 @@
 												</select> 月 <select id="birthYear" name="joining_date_day">
 														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
 												</select> 日</td>
-
-
-
 											</tr>
-
+											<!-- 入社日が入力されていた場合こちらを反映する -->
+											<tr th:if="${ employee.joining_date_year !=null}">
+												<td><select id="birthYear" name="joining_date_year">
+														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == employee.joining_date_year}" th:inline="text">[[${year}]]</option>
+												</select> 年 <select id="birthMonth" name="joining_date_month">
+														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == employee.joining_date_month}" th:inline="text">[[${month}]]</option>
+												</select> 月 <select id="birthYear" name="joining_date_day">
+														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == employee.joining_date_day}" th:inline="text">[[${day}]]</option>
+												</select> 日</td>
+											</tr>
 										</table>
 									</div>
 								</td>
 							</tr>
-
 							<tr>
-								<td><label for="name">コメント</label> <textarea type="text" class="form-control" th:errorclass="is-invalid" th:field="*{comment}" rows="3"></textarea>
+								<td><label for="name">コメント</label> <textarea class="form-control" th:errorclass="is-invalid" th:field="*{comment}" rows="3"></textarea>
 									<div class="invalid-feedback" th:errors="*{comment}"></div> <small id="helpId" class="text-muted">１００文字以内で入力してください</small></td>
 							</tr>
-
 							<tr>
 								<td>
 									<div class="mt-2">
@@ -130,13 +130,9 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- ここまで -->
-
 	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
