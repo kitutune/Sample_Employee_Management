@@ -35,13 +35,9 @@ public class EmployeeController {
     
     @GetMapping ("/regist")
     public String getRegistEmployee (@ModelAttribute Employee employee, Model model) {
-        // System.out.println ("year" + employee.getBirth_year ());
-        // System.out.println ("month" + employee.getBirth_month ());
-        // System.out.println ("day" + employee.getBirth_day ());
+        // ラジオボタンの初期位置を男に設定する
         if (employee.getGender () == null) {
-            // System.out.print (employee.getGender ());
             employee.setGender ("男");
-            // System.out.print (employee.getGender ());
         }
         model.addAttribute ("genderList", gGenderList.getGender ());
         model.addAttribute ("birthYear", gBirthList.getBirthYear ());
@@ -53,13 +49,8 @@ public class EmployeeController {
         return "regist";
     }
     
-    // actionで受けとる
     @PostMapping ("/regist")
     public String registEmployee (@Validated @ModelAttribute Employee employee, BindingResult result, Model model) {
-        System.out.println ("year" + employee.getBirth_year ());
-        System.out.println ("month" + employee.getBirth_month ());
-        System.out.println ("day" + employee.getBirth_day ());
-        // System.out.println (employee.getGender ());
         
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", gGenderList.getGender ());
@@ -81,9 +72,7 @@ public class EmployeeController {
     public String getEditEmployee (@PathVariable Long user_id, Model model) {
         model.addAttribute ("employee", repository.findById (user_id));
         
-        System.out.println ("year" + repository.findById (user_id).get ().getBirth_year ());
-        System.out.println ("month" + repository.findById (user_id).get ().getBirth_month ());
-        System.out.println ("month" + repository.findById (user_id).get ().getBirth_day ());
+        // editの画面に行った際に何故かEmployeeの年月日関係のデータを送れないのでここで用意する
         model.addAttribute ("birth_year", repository.findById (user_id).get ().getBirth_year ());
         model.addAttribute ("birth_month", repository.findById (user_id).get ().getBirth_month ());
         model.addAttribute ("birth_day", repository.findById (user_id).get ().getBirth_day ());
@@ -102,7 +91,6 @@ public class EmployeeController {
         return "edit";
     }
     
-    // actionで受けとる
     @PostMapping ("/edited")
     public String editEmployee (@Validated @ModelAttribute Employee employee, BindingResult result, Model model) {
         if (result.hasErrors ()) {
