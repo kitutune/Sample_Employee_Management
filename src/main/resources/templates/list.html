@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
+			<a th:href="@{/regist}" class="btn btn-navy"> <i class="bi bi-pencil-square"></i> 新規登録はこちら
+								</a>
+
+	<div class="row">
+		<div class="col">
+
+			<div class="card shadow">
+				<div class="card-header">
+					<h6 class="text-navy my-2">社員一覧</h6>
+				</div>
+				<div class="card-body">
+
+					<div th:if="${employees.size() == 0}">該当データがありません</div>
+
+					<table th:if="${employees.size() > 0}" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>社員番号</th>
+								<th>名前</th>
+								<th>メールアドレス</th>
+								<th>電話番号</th>
+								<th>性別</th>
+								<th>誕生日（年）</th>
+								<th>（月）</th>
+								<th>（日）</th>
+								<th>入社日（年）</th>
+								<th>（月）</th>
+								<th>（日）</th>
+								<th>コメント</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="employee : ${employees}" th:object="${employee}">
+								<td th:text="*{user_id}"></td>
+								<td th:text="*{user_name}"></td>
+								<td th:text="*{email}"></td>
+								<td th:text="*{phone_number}"></td>
+								<td th:text="*{gender}"></td>
+								<td th:text="*{birth_year}"></td>
+								<td th:text="*{birth_month}"></td>
+								<td th:text="*{birth_day}"></td>
+								<td th:text="*{jdate_year}"></td>
+								<td th:text="*{jdate_month}"></td>
+								<td th:text="*{jdate_day}"></td>
+								<td th:text="*{comment}"></td>
+								<td>
+								<a th:href="@{/edit/{id}(id=*{user_id})}" class="btn btn-navy"> <i class="bi bi-pencil-square"></i> 編集
+								</a>
+
+								<a th:href="@{/delete/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-trash-fill"></i> 削除
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </body>
 </html>
