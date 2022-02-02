@@ -19,30 +19,30 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<label for="name">社員番号</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_id}">
+										<label th:text="#{userId}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_id}">
 										<div class="invalid-feedback" th:errors="*{user_id}"></div>
-										<small id="helpId" class="text-muted">半角の数字で入力してください</small>
+										<small class="text-muted">半角の数字で入力してください</small>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
-										<label for="name">氏名</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_name}">
+										<label th:text="#{userName}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_name}">
 										<div class="invalid-feedback" th:errors="*{user_name}"></div>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td><label for="name">Email</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{email}">
-									<div class="invalid-feedback" th:errors="*{email}"></div> <small id="helpId" class="text-muted">xxx@xxx形式で入力してください</small></td>
+								<td><label th:text="#{eMail}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{email}">
+									<div class="invalid-feedback" th:errors="*{email}"></div> <small class="text-muted">xxx@xxx形式で入力してください</small></td>
 							</tr>
 							<tr>
-								<td><label for="name">電話番号</label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{phone_number}">
-									<div class="invalid-feedback" th:errors="*{phone_number}"></div> <small id="helpId" class="text-muted">半角の数字のみでスペースを空けずに入力してください</small></td>
+								<td><label th:text="#{phone}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{phone_number}">
+									<div class="invalid-feedback" th:errors="*{phone_number}"></div> <small class="text-muted">半角の数字のみでスペースを空けずに入力してください</small></td>
 							</tr>
 							<tr>
-								<td><label for="">性別</label></td>
+								<td><label th:text="#{gender}"></label></td>
 							</tr>
 							<tr>
 								<td>
@@ -56,27 +56,9 @@
 									<div class="form-group">
 										<table>
 											<tr>
-												<td><label for="">生年月日</label></td>
+												<td><label th:text="#{birth}"></label></td>
 											</tr>
-											<tr th:if="${ employee.birth_year ==0}">
-												<td><select id="birthYear" name="birth_year">
-														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="birth_month">
-														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == 1}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="birth_day">
-														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
-												</select> 日</td>
-											</tr>
-											<!-- 誕生日にデータが入力されていればこちらを表示 -->
-											<tr th:if="${ employee.birth_year !=0}">
-												<td><select id="birthYear" name="birth_year">
-														<option th:each="year : ${birthYear}" th:value="${year}" th:selected="${year == employee.birth_year}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="birth_month">
-														<option th:each=" month: ${birthMonth}" th:value="${month}" th:selected="${month == employee.birth_month}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="birth_day">
-														<option th:each="day : ${birthDay}" th:value="${day}" th:selected="${day == employee.birth_day}" th:inline="text">[[${day}]]</option>
-												</select> 日</td>
-											</tr>
+											<!-- 生年月日 -->
 										</table>
 									</div>
 								</td>
@@ -86,34 +68,16 @@
 									<div class="form-group">
 										<table>
 											<tr>
-												<td><label for="">入社日</label></td>
+												<td><label th:text="#{join}"></label></td>
 											</tr>
-											<tr th:if="${ employee.jdate_year ==0}">
-												<td><select id="birthYear" name="jdate_year">
-														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == 2000}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="jdate_month">
-														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == 1}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="jdate_day">
-														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == 1}" th:inline="text">[[${day}]]</option>
-												</select> 日</td>
-											</tr>
-											<!-- 入社日が入力されていた場合こちらを反映する -->
-											<tr th:if="${ employee.jdate_year !=0}">
-												<td><select id="birthYear" name="jdate_year">
-														<option th:each="year : ${joiningYear}" th:value="${year}" th:selected="${year == employee.jdate_year}" th:inline="text">[[${year}]]</option>
-												</select> 年 <select id="birthMonth" name="jdate_month">
-														<option th:each=" month: ${joiningMonth}" th:value="${month}" th:selected="${month == employee.jdate_month}" th:inline="text">[[${month}]]</option>
-												</select> 月 <select id="birthYear" name="jdate_day">
-														<option th:each="day : ${joiningDay}" th:value="${day}" th:selected="${day == employee.jdate_day}" th:inline="text">[[${day}]]</option>
-												</select> 日</td>
-											</tr>
+											<!-- 入社日 -->
 										</table>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td><label for="name">コメント</label> <textarea class="form-control" th:errorclass="is-invalid" th:field="*{comment}" rows="3"></textarea>
-									<div class="invalid-feedback" th:errors="*{comment}"></div> <small id="helpId" class="text-muted">１００文字以内で入力してください</small></td>
+								<td><label th:text="#{comment}"></label> <textarea class="form-control" th:errorclass="is-invalid" th:field="*{comment}" rows="3"></textarea>
+									<div class="invalid-feedback" th:errors="*{comment}"></div> <small class="text-muted">１００文字以内で入力してください</small></td>
 							</tr>
 							<tr>
 								<td>
