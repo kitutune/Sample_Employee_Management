@@ -49,7 +49,6 @@ public class EmployeeController {
         
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", eService.getGenderList ());
-            System.out.print ("エラー出てる");
             return "regist";
         }
         Employee employee = eService.formToEntity (form);
@@ -61,10 +60,21 @@ public class EmployeeController {
     public String getEditEmployee (@PathVariable String userId, Model model) {
         EmployeeForm form = eService.entityToForm (repository.getById (userId));
         model.addAttribute ("employeeForm", form);
-        // return "edit";
+        model.addAttribute ("genderList", eService.getGenderList ());
         return "regist";
     }
     
+    @PostMapping ("/edit/regist")
+    public String editEmployee (@Validated @ModelAttribute EmployeeForm form, BindingResult result, Model model) {
+        if (result.hasErrors ()) {
+            model.addAttribute ("genderList", eService.getGenderList ());
+            return "regist";
+        }
+        Employee employee = eService.formToEntity (form);
+        repository.save (employee);
+        return "redirect:/";
+    }
+    //
     // @PostMapping ("/edit/edit")
     // public String editEmployee (@Validated @ModelAttribute EmployeeForm form,
     // BindingResult result, Model model) {
