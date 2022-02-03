@@ -17,10 +17,11 @@ public class EmployeeForm {
     // 社員番号
     @Id
     @NotNull (message = "必須入力です")
-    private String user_id;
+    @Pattern (regexp = "^[0-9]*$", message = "半角英数字で入力してください")
+    private String userId;
     // 氏名
     @NotBlank (message = "必須入力です")
-    private String user_name;
+    private String userName;
     // Email
     @NotBlank (message = "必須入力です")
     @Pattern (regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}$", message = "メールアドレス形式で入力してください")

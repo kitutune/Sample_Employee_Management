@@ -12,9 +12,9 @@ import lombok.Data;
 public class Employee {
     // 社員番号
     @Id
-    private String user_id;
+    private String userId;
     // 氏名
-    private String user_name;
+    private String userName;
     // Email
     private String email;
     // 電話番号

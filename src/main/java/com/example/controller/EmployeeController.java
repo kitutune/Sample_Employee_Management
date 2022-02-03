@@ -57,9 +57,9 @@ public class EmployeeController {
         return "redirect:/";
     }
     
-    @GetMapping ("/edit/{user_id}")
-    public String getEditEmployee (@PathVariable String user_id, Model model) {
-        EmployeeForm form = eService.entityToForm (repository.getById (user_id));
+    @GetMapping ("/edit/{userId}")
+    public String getEditEmployee (@PathVariable String userId, Model model) {
+        EmployeeForm form = eService.entityToForm (repository.getById (userId));
         model.addAttribute ("employeeForm", form);
         // return "edit";
         return "regist";
