@@ -9,21 +9,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.form.EmployeeForm;
 import com.example.model.Employee;
 import com.example.repository.EmployeeRepository;
-import com.example.service.GetBirthList;
-import com.example.service.GetGenderList;
-import com.example.service.GetJoiningDateList;
+import com.example.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeRepository repository;
-    private final GetBirthList gBirthList;
-    private final GetJoiningDateList gJoiningDateList;
-    private final GetGenderList gGenderList;
+    private final EmployeeService eService;
     
     @GetMapping ("/")
     public String getList (Model model) {
@@ -33,83 +32,55 @@ public class EmployeeController {
     }
     
     @GetMapping ("/regist")
-    public String getRegistEmployee (@ModelAttribute Employee employee, Model model) {
+    public String getRegistEmployee (@ModelAttribute EmployeeForm form, Model model) {
         // ラジオボタンの初期位置を男に設定する
-        if (employee.getGender () == null) {
-            employee.setGender ("男");
+        if (form.getGender () == null) {
+            form.setGender ("男");
         }
-        model.addAttribute ("genderList", gGenderList.getGender ());
-        model.addAttribute ("birthYear", gBirthList.getBirthYear ());
-        model.addAttribute ("birthMonth", gBirthList.getBirthMonth ());
-        model.addAttribute ("birthDay", gBirthList.getBirthDay ());
-        model.addAttribute ("joiningYear", gJoiningDateList.getJoinYear ());
-        model.addAttribute ("joiningMonth", gJoiningDateList.getJoinMonth ());
-        model.addAttribute ("joiningDay", gJoiningDateList.getJoinDay ());
+        
+        model.addAttribute ("genderList", eService.getGenderList ());
+        
         return "regist";
     }
     
     @PostMapping ("/regist")
-    public String registEmployee (@Validated @ModelAttribute Employee employee, BindingResult result, Model model) {
+    public String registEmployee (@Validated @ModelAttribute EmployeeForm form, BindingResult result, Model model) {
+        log.info (form.toString ());
         
         if (result.hasErrors ()) {
-            model.addAttribute ("genderList", gGenderList.getGender ());
-            model.addAttribute ("birthYear", gBirthList.getBirthYear ());
-            model.addAttribute ("birthMonth", gBirthList.getBirthMonth ());
-            model.addAttribute ("birthDay", gBirthList.getBirthDay ());
-            model.addAttribute ("joiningYear", gJoiningDateList.getJoinYear ());
-            model.addAttribute ("joiningMonth", gJoiningDateList.getJoinMonth ());
-            model.addAttribute ("joiningDay", gJoiningDateList.getJoinDay ());
+            model.addAttribute ("genderList", eService.getGenderList ());
             System.out.print ("エラー出てる");
             return "regist";
         }
-        
+        Employee employee = eService.formToEntity (form);
         repository.save (employee);
         return "redirect:/";
     }
     
     @GetMapping ("/edit/{user_id}")
-    public String getEditEmployee (@PathVariable Long user_id, Model model) {
-        model.addAttribute ("employee", repository.findById (user_id));
-        
-        // editの画面に行った際に何故かEmployeeの年月日関係のデータを送れないのでここで用意する
-        model.addAttribute ("birth_year", repository.findById (user_id).get ().getBirth_year ());
-        model.addAttribute ("birth_month", repository.findById (user_id).get ().getBirth_month ());
-        model.addAttribute ("birth_day", repository.findById (user_id).get ().getBirth_day ());
-        model.addAttribute ("jdate_year", repository.findById (user_id).get ().getJdate_year ());
-        model.addAttribute ("jdate_month", repository.findById (user_id).get ().getJdate_month ());
-        model.addAttribute ("jdate_day", repository.findById (user_id).get ().getJdate_day ());
-        
-        model.addAttribute ("genderList", gGenderList.getGender ());
-        model.addAttribute ("birthYear", gBirthList.getBirthYear ());
-        model.addAttribute ("birthMonth", gBirthList.getBirthMonth ());
-        model.addAttribute ("birthDay", gBirthList.getBirthDay ());
-        model.addAttribute ("joiningYear", gJoiningDateList.getJoinYear ());
-        model.addAttribute ("joiningMonth", gJoiningDateList.getJoinMonth ());
-        model.addAttribute ("joiningDay", gJoiningDateList.getJoinDay ());
-        
-        return "edit";
+    public String getEditEmployee (@PathVariable String user_id, Model model) {
+        EmployeeForm form = eService.entityToForm (repository.getById (user_id));
+        model.addAttribute ("employeeForm", form);
+        // return "edit";
+        return "regist";
     }
     
-    @PostMapping ("/edit/edit")
-    public String editEmployee (@Validated @ModelAttribute Employee employee, BindingResult result, Model model) {
-        if (result.hasErrors ()) {
-            model.addAttribute ("genderList", gGenderList.getGender ());
-            model.addAttribute ("birthYear", gBirthList.getBirthYear ());
-            model.addAttribute ("birthMonth", gBirthList.getBirthMonth ());
-            model.addAttribute ("birthDay", gBirthList.getBirthDay ());
-            model.addAttribute ("joiningYear", gJoiningDateList.getJoinYear ());
-            model.addAttribute ("joiningMonth", gJoiningDateList.getJoinMonth ());
-            model.addAttribute ("joiningDay", gJoiningDateList.getJoinDay ());
-            
-            return "edit";
-        }
-        
-        repository.save (employee);
-        return "redirect:/";
-    }
+    // @PostMapping ("/edit/edit")
+    // public String editEmployee (@Validated @ModelAttribute EmployeeForm form,
+    // BindingResult result, Model model) {
+    // if (result.hasErrors ()) {
+    // // 引き継げない
+    // // model.addAttribute ("genderList", gGenderList.getGender ());
+    // // return "redirect:/edit/3";
+    // return "edit";
+    // }
+    // Employee employee = eService.formToEntity (form);
+    // repository.save (employee);
+    // return "redirect:/";
+    // }
     
     @GetMapping ("/delete/{id}")
-    public String deleteEmployee (@PathVariable Long id) {
+    public String deleteEmployee (@PathVariable String id) {
         repository.deleteById (id);
         return "redirect:/";
     }

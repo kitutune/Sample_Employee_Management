@@ -12,16 +12,16 @@
 	<div class="card" style="width: 30rem">
 		<div class="container mt-4">
 			<div class="panel panel-default">
-				<h4 class="panel-heading btn-primary" style="padding: 10px; text-align: center; height: 50px; margin-bottom: 20px;">登録フォーム</h4>
+				<h4 class="panel-heading btn-primary" style="padding: 10px; text-align: center; height: 50px; margin-bottom: 20px;" th:text="#{registForm}"></h4>
 				<div class="panel-body">
-					<form class="form-horizontal" th:action="@{regist}" th:object="${employee}" method="post">
+					<form class="form-horizontal" th:action="@{regist}" th:object="${employeeForm}" method="post">
 						<table>
 							<tr>
 								<td>
 									<div class="form-group">
 										<label th:text="#{userId}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_id}">
 										<div class="invalid-feedback" th:errors="*{user_id}"></div>
-										<small class="text-muted">半角の数字で入力してください</small>
+										<small class="text-muted" th:text="#{numValidate}"></small>
 									</div>
 								</td>
 							</tr>
@@ -35,11 +35,11 @@
 							</tr>
 							<tr>
 								<td><label th:text="#{eMail}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{email}">
-									<div class="invalid-feedback" th:errors="*{email}"></div> <small class="text-muted">xxx@xxx形式で入力してください</small></td>
+									<div class="invalid-feedback" th:errors="*{email}"></div> <small class="text-muted" th:text="#{phoneValidate}"></small></td>
 							</tr>
 							<tr>
 								<td><label th:text="#{phone}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{phone_number}">
-									<div class="invalid-feedback" th:errors="*{phone_number}"></div> <small class="text-muted">半角の数字のみでスペースを空けずに入力してください</small></td>
+									<div class="invalid-feedback" th:errors="*{phone_number}"></div> <small class="text-muted" th:text="#{numValidate}"></small></td>
 							</tr>
 							<tr>
 								<td><label th:text="#{gender}"></label></td>
@@ -52,32 +52,16 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<div class="form-group">
-										<table>
-											<tr>
-												<td><label th:text="#{birth}"></label></td>
-											</tr>
-											<!-- 生年月日 -->
-										</table>
-									</div>
-								</td>
+								<td><label th:text="#{birth}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{birthday}">
+									<div class="invalid-feedback" th:errors="*{birthday}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
 							<tr>
-								<td>
-									<div class="form-group">
-										<table>
-											<tr>
-												<td><label th:text="#{join}"></label></td>
-											</tr>
-											<!-- 入社日 -->
-										</table>
-									</div>
-								</td>
+								<td><label th:text="#{join}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{joinday}">
+									<div class="invalid-feedback" th:errors="*{joinday}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
 							<tr>
 								<td><label th:text="#{comment}"></label> <textarea class="form-control" th:errorclass="is-invalid" th:field="*{comment}" rows="3"></textarea>
-									<div class="invalid-feedback" th:errors="*{comment}"></div> <small class="text-muted">１００文字以内で入力してください</small></td>
+									<div class="invalid-feedback" th:errors="*{comment}"></div> <small class="text-muted" th:text="#{commentValedate}"></small></td>
 							</tr>
 							<tr>
 								<td>

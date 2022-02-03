@@ -48,14 +48,9 @@ table th {
 								<th th:text="#{eMail}"></th>
 								<th th:text="#{phone}"></th>
 								<th th:text="#{gender}"></th>
-								<!-- <th th:text="#{userId}">誕生日（年）</th>
-								<th >（月）</th>
-								<th>（日）</th>
-								<th>入社日（年）</th>
-								<th>（月）</th>
-								<th>（日）</th>
-								 -->
-								 <th th:text="#{comment}">コメント</th>
+								<th th:text="#{birth}"></th>
+								<th th:text="#{join}"></th>
+								<th th:text="#{comment}"></th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -67,16 +62,16 @@ table th {
 								<td th:text="*{email}"></td>
 								<td th:text="*{phone_number}"></td>
 								<td th:text="*{gender}"></td>
-							<!-- 	<td th:text="*{birth_year}"></td>
-								<td th:text="*{birth_month}"></td>
+								<td th:text="*{birthday}"></td>
+								<td th:text="*{joinday}"></td>
+								<!-- 	<td th:text="*{birth_year}"></td>
 								<td th:text="*{birth_day}"></td>
-								<td th:text="*{jdate_year}"></td>
 								<td th:text="*{jdate_month}"></td>
 								<td th:text="*{jdate_day}"></td> -->
 								<td th:text="*{comment}"></td>
-								<td><a th:href="@{/edit/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-pencil-square"  th:text="#{edit}"></i>
+								<td><a th:href="@{/edit/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
 								</a></td>
-								<td><a th:href="@{/delete/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-trash-fill"  th:text="#{delete}"></i>
+								<td><a th:href="@{/delete/{id}(id=*{user_id})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{delete}"></i>
 								</a></td>
 							</tr>
 						</tbody>
