@@ -4,11 +4,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
 @Data
+@Table (name = "employee")
 public class Employee {
     // 社員番号
     @Id
