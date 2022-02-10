@@ -35,9 +35,11 @@ public class EmployeeForm {
     // 初期値が選択されているのでNotBlankを削除
     private String gender;
     // 生年月日
+    @NotNull (message = "必須入力です")
     @DateTimeFormat (pattern = "yyyy/MM/dd")
     private String birthday;
     // 入社日
+    @NotNull (message = "必須入力です")
     @DateTimeFormat (pattern = "yyyy/MM/dd")
     private String joinday;
     // コメント
