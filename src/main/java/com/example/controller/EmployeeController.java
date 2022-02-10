@@ -1,15 +1,19 @@
 package com.example.controller;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.form.EmployeeForm;
+import com.example.form.GetSearchWord;
 import com.example.model.Employee;
 import com.example.repository.EmployeeRepository;
 import com.example.service.EmployeeService;
@@ -24,10 +28,41 @@ public class EmployeeController {
     private final EmployeeRepository repository;
     private final EmployeeService eService;
     
+    // このコントローラーで空のまま送信された値は全て空文字ではなくnullにする
+    @InitBinder
+    public void initBinder (WebDataBinder binder) {
+        // bind empty strings as null
+        binder.registerCustomEditor (String.class, new StringTrimmerEditor (true));
+    }
+    
     @GetMapping ("/")
-    public String getList (Model model) {
-        // JpaRepositoryのメソッドであるfindAll()を使ってDBに保存されているemployeeのデータを持ってくる
+    public String getList (@ModelAttribute GetSearchWord word, Model model) {
         model.addAttribute ("employees", repository.findAll ());
+        // model.addAttribute ("employees", repository.namesearch ("tensai"));
+        // 検索用
+        model.addAttribute ("genderList", eService.getGenderList ());
+        // model.addAttribute ("getSearchWord", null);
+        
+        System.out.println ("ここはホーム");
+        return "list";
+    }
+    
+    @PostMapping ("/search")
+    public String getSearch (@ModelAttribute GetSearchWord word, Model model) {
+        log.info (word.toString ());
+        System.out.println ("nameはnullか？:" + (word.getName () == null));
+        System.out.println ("nameは？:" + word.getName ());
+        System.out.println ("genderはnullか？:" + (word.getGender () == null));
+        System.out.println ("genderは？:" + word.getGender ());
+        System.out.println ("joinfromはnullか？:" + (word.getGetJoinDateFrom () == null));
+        System.out.println ("joinfromは？:" + word.getGetJoinDateFrom ());
+        
+        // model.addAttribute ("employees", eService.getSearchEmployees (word));
+        model.addAttribute ("employees", repository.search (word.getName (), word.getGender (),
+                word.getGetJoinDateFrom (), word.getGetJoinDateTo ()));
+        
+        // 検索用
+        model.addAttribute ("genderList", eService.getGenderList ());
         return "list";
     }
     
@@ -74,7 +109,6 @@ public class EmployeeController {
         repository.save (employee);
         return "redirect:/";
     }
-   
     
     @GetMapping ("/delete/{id}")
     public String deleteEmployee (@PathVariable String id) {
