@@ -1,7 +1,5 @@
 package com.example.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,7 +14,7 @@ public class Employee {
     @Id
     private String userId;
     // 氏名
-    private String userName;
+    private String username;
     // Email
     private String email;
     // 電話番号
@@ -24,9 +22,9 @@ public class Employee {
     // 性別
     private String gender;
     // 生年月日
-    private LocalDate birthday;
+    private String birthday;
     // 入社日
-    private LocalDate joinday;
+    private String joinday;
     // コメント
     private String comment;
 }
