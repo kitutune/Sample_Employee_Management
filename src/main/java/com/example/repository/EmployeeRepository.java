@@ -12,23 +12,6 @@ import com.example.model.Employee;
 // @Repositoryを付けてもいいが、JpaRepositoryを継承しているので省略してもいい
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String>, JpaSpecificationExecutor<Employee> {
-    
-    @Query (value = "select * from employee where user_name Like =?1 AND  gender = ?2 AND =?3 < joinday AND joinday < =?4 ", nativeQuery = true)
-    List<Employee> search (String userName, String gender, String joinDateFrom, String joinDateTo);
-    
-    @Query (value = "select * from employee where user_name Like  ?1", nativeQuery = true)
-    List<Employee> namesearch (String name);
-    
-    @Query (value = "select * from employee where gender = ?1 ", nativeQuery = true)
-    List<Employee> gendersearch (String gender);
-    
-    @Query (value = "select * from employee where  =?1 < joinday AND joinday < =?2 ", nativeQuery = true)
-    List<Employee> dayearch (String joinDateFrom, String joinDateTo);
-    
-    // List<Employee> findByUserNameLike (String userName);
-    //
-    // List<Employee> findBygenderLike (String gender);
-    //
-    // List<Employee> findByJoinday (LocalDate joinday);
-    
+    @Query (value = "select * from employee where (?1 is null or username LIKE %?1%)AND(?2 is null or gender = ?2)AND(?3 is null or joinday >= ?3 )AND(?4 is null or joinday <= ?4 )", nativeQuery = true)
+    List<Employee> search (String name, String gender, String start, String end);
 }
