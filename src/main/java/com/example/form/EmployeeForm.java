@@ -44,6 +44,7 @@ public class EmployeeForm {
     private String joinday;
     // コメント
     // 最大値を１００文字制限
+    @NotNull (message = "必須入力です")
     @Size (min = 1, max = 100, message = "コメントは1文字以上１００文字以内で入力してください")
     // @Size (min = 1, max = 100, message = "{validation.not-selected}")
     private String comment;
