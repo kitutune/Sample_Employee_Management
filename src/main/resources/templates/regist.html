@@ -28,8 +28,8 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<label th:text="#{userName}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{userName}">
-										<div class="invalid-feedback" th:errors="*{userName}"></div>
+										<label th:text="#{username}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{username}">
+										<div class="invalid-feedback" th:errors="*{username}"></div>
 									</div>
 								</td>
 							</tr>
@@ -52,11 +52,11 @@
 								</td>
 							</tr>
 							<tr>
-								<td><label th:text="#{birth}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{birthday}">
+								<td><label th:text="#{birth}"></label> <input type="date" class="form-control" th:errorclass="is-invalid" th:field="*{birthday}">
 									<div class="invalid-feedback" th:errors="*{birthday}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
 							<tr>
-								<td><label th:text="#{join}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{joinday}">
+								<td><label th:text="#{join}"></label> <input type="date" class="form-control" th:errorclass="is-invalid" th:field="*{joinday}">
 									<div class="invalid-feedback" th:errors="*{joinday}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
 							<tr>
