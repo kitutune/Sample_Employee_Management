@@ -1,9 +1,6 @@
 package com.example.form;
 
-import java.time.LocalDate;
-
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -17,13 +14,13 @@ public class EmployeeForm {
     // 社員番号
     @Id
     @NotNull (message = "必須入力です")
-    @Pattern (regexp = "^[0-9]*$", message = "半角英数字で入力してください")
+    @Pattern (regexp = "^[0-9]*$", message = "半角数字で入力してください")
     private String userId;
     // 氏名
-    @NotBlank (message = "必須入力です")
-    private String userName;
+    @NotNull (message = "必須入力です")
+    private String username;
     // Email
-    @NotBlank (message = "必須入力です")
+    @NotNull (message = "必須入力です")
     @Pattern (regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}$", message = "メールアドレス形式で入力してください")
     // @Pattern (regexp =
     // "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}$")
@@ -31,7 +28,7 @@ public class EmployeeForm {
     // 電話番号
     // 半角でハイフン無し
     @Pattern (regexp = "0\\d{9,10}", message = "電話番号の形式でハイフンを含めず半角数字だけで入力してください")
-    @NotBlank (message = "必須入力です")
+    @NotNull (message = "必須入力です")
     private String phone_number;
     // 性別
     // ラジオボタン
@@ -39,10 +36,10 @@ public class EmployeeForm {
     private String gender;
     // 生年月日
     @DateTimeFormat (pattern = "yyyy/MM/dd")
-    private LocalDate birthday;
+    private String birthday;
     // 入社日
     @DateTimeFormat (pattern = "yyyy/MM/dd")
-    private LocalDate joinday;
+    private String joinday;
     // コメント
     // 最大値を１００文字制限
     @Size (min = 1, max = 100, message = "コメントは1文字以上１００文字以内で入力してください")
