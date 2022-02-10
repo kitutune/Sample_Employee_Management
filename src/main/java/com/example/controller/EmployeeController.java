@@ -74,20 +74,7 @@ public class EmployeeController {
         repository.save (employee);
         return "redirect:/";
     }
-    //
-    // @PostMapping ("/edit/edit")
-    // public String editEmployee (@Validated @ModelAttribute EmployeeForm form,
-    // BindingResult result, Model model) {
-    // if (result.hasErrors ()) {
-    // // 引き継げない
-    // // model.addAttribute ("genderList", gGenderList.getGender ());
-    // // return "redirect:/edit/3";
-    // return "edit";
-    // }
-    // Employee employee = eService.formToEntity (form);
-    // repository.save (employee);
-    // return "redirect:/";
-    // }
+   
     
     @GetMapping ("/delete/{id}")
     public String deleteEmployee (@PathVariable String id) {
