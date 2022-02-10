@@ -95,6 +95,7 @@ public class EmployeeController {
     public String getEditEmployee (@PathVariable String userId, Model model) {
         EmployeeForm form = eService.entityToForm (repository.getById (userId));
         model.addAttribute ("employeeForm", form);
+        model.addAttribute ("read", "read");
         model.addAttribute ("genderList", eService.getGenderList ());
         return "regist";
     }
@@ -103,6 +104,8 @@ public class EmployeeController {
     public String editEmployee (@Validated @ModelAttribute EmployeeForm form, BindingResult result, Model model) {
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", eService.getGenderList ());
+            model.addAttribute ("read", "read");
+            
             return "regist";
         }
         Employee employee = eService.formToEntity (form);
