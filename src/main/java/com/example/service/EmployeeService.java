@@ -25,7 +25,7 @@ public class EmployeeService {
         
         employee.setUserId (form.getUserId ());
         // 氏名
-        employee.setUserName (form.getUserName ());
+        employee.setUsername (form.getUsername ());
         // Email
         employee.setEmail (form.getEmail ());
         // 電話番号
@@ -44,7 +44,7 @@ public class EmployeeService {
     public EmployeeForm entityToForm (Employee employee) {
         EmployeeForm form = new EmployeeForm ();
         form.setUserId (employee.getUserId ());
-        form.setUserName (employee.getUserName ());
+        form.setUsername (employee.getUsername ());
         form.setEmail (employee.getEmail ());
         form.setPhone_number (employee.getPhone_number ());
         form.setGender (employee.getGender ());
