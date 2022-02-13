@@ -1,6 +1,8 @@
 package com.example.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +14,8 @@ import lombok.Data;
 public class Employee {
     // 社員番号
     @Id
-    private String userId;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long userId;
     // 氏名
     private String username;
     // Email

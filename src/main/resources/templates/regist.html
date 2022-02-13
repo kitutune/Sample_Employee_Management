@@ -19,15 +19,6 @@
 							<tr>
 								<td>
 									<div class="form-group">
-										<label th:text="#{userId}"></label> <input type="text" th:readonly="${read != null}"  class="form-control" th:errorclass="is-invalid" th:field="*{userId}">
-										<div class="invalid-feedback" th:errors="*{userId}"></div>
-										<small class="text-muted" th:text="#{numValidate}"></small>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="form-group">
 										<label th:text="#{username}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{username}">
 										<div class="invalid-feedback" th:errors="*{username}"></div>
 									</div>

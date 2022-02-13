@@ -13,9 +13,7 @@ import lombok.Data;
 public class EmployeeForm {
     // 社員番号
     @Id
-    @NotNull (message = "必須入力です")
-    @Pattern (regexp = "^[0-9]*$", message = "半角数字で入力してください")
-    private String userId;
+    private Long userId;
     // 氏名
     @NotNull (message = "必須入力です")
     private String username;
