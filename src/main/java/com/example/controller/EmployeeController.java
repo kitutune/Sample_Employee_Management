@@ -50,17 +50,8 @@ public class EmployeeController {
     @PostMapping ("/search")
     public String getSearch (@ModelAttribute GetSearchWord word, Model model) {
         log.info (word.toString ());
-        System.out.println ("nameはnullか？:" + (word.getName () == null));
-        System.out.println ("nameは？:" + word.getName ());
-        System.out.println ("genderはnullか？:" + (word.getGender () == null));
-        System.out.println ("genderは？:" + word.getGender ());
-        System.out.println ("joinfromはnullか？:" + (word.getGetJoinDateFrom () == null));
-        System.out.println ("joinfromは？:" + word.getGetJoinDateFrom ());
-        
-        // model.addAttribute ("employees", eService.getSearchEmployees (word));
         model.addAttribute ("employees", repository.search (word.getName (), word.getGender (),
                 word.getGetJoinDateFrom (), word.getGetJoinDateTo ()));
-        
         // 検索用
         model.addAttribute ("genderList", eService.getGenderList ());
         return "list";
@@ -72,16 +63,13 @@ public class EmployeeController {
         if (form.getGender () == null) {
             form.setGender ("男");
         }
-        
         model.addAttribute ("genderList", eService.getGenderList ());
-        
         return "regist";
     }
     
     @PostMapping ("/regist")
     public String registEmployee (@Validated @ModelAttribute EmployeeForm form, BindingResult result, Model model) {
         log.info (form.toString ());
-        
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", eService.getGenderList ());
             return "regist";
@@ -92,7 +80,8 @@ public class EmployeeController {
     }
     
     @GetMapping ("/edit/{userId}")
-    public String getEditEmployee (@PathVariable String userId, Model model) {
+    public String getEditEmployee (@PathVariable Long userId, Model model) {
+        
         EmployeeForm form = eService.entityToForm (repository.getById (userId));
         model.addAttribute ("employeeForm", form);
         model.addAttribute ("read", "read");
@@ -105,7 +94,6 @@ public class EmployeeController {
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", eService.getGenderList ());
             model.addAttribute ("read", "read");
-            
             return "regist";
         }
         Employee employee = eService.formToEntity (form);
@@ -114,7 +102,7 @@ public class EmployeeController {
     }
     
     @GetMapping ("/delete/{id}")
-    public String deleteEmployee (@PathVariable String id) {
+    public String deleteEmployee (@PathVariable Long id) {
         repository.deleteById (id);
         return "redirect:/";
     }
