@@ -64,4 +64,17 @@ public class DepartmentService {
         
     }
     
+    // employeeテーブルのデータをdemployeeテーブルに保存
+    public void saveDemp () {
+        Demployee demp = new Demployee ();
+        List<Employee> eList = emp.findAll ();
+        for (Employee emp : eList) {
+            
+            demp.setUsername (emp.getUsername ());
+            demp.setUserId (emp.getUserId ());
+            this.demp.save (demp);
+        }
+        System.out.println ("成功");
+    }
+    
 }
