@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<title>Insert title here</title>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 16px;
+}
+
+table th, table td {
+	border: 1px solid #ddd;
+	padding: 6px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+table td {
+	background-color: #F2F2F2;
+	color: black;
+}
+
+table th {
+	/* background-color: #F2F2F2; */
+
+}
+</style>
+</head>
+<body>
+	<div class="row">
+		<div class="col">
+			<div class="card shadow">
+				<div class="card-header">
+					<h2 class="text-navy my-2" th:text="#{employeeList}"></h2>
+					<br /> <a th:href="@{/regist}" type="button" class="btn btn-warning font-weight-bold" th:text="#{newRegist}"> </a> <br /> <br />
+
+				</div>
+			<!-- 	<div class="card-body">
+					<div th:if="${departments.size() == 0}" th:text="#{noData}"></div>
+					<table th:if="${departments.size() > 0}" class="table table-bordered panel-heading btn-primary">
+						<thead>
+							<tr>
+								<th th:text="#{id}"></th>
+								<th th:text="#{username}"></th>
+								<th th:text="#{area}"></th>
+								<th th:text="#{sales}"></th>
+								<th th:text="#{numberOfCustomers}"></th>
+								<th th:text="#{updateDate}"></th>
+
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="department : ${departments}"  th:object="${department}">
+								<td th:text="*{id}"></td>
+								<td th:text="*{department_name}"></td>
+								<td th:text="*{total_sales}"></td>
+								<td th:text="*{total_people}"></td>
+								<td th:text="*{individual_sales_average}"></td>
+								<td th:text="*{individual_sales_average}"></td>
+
+								<td><a th:href="@{/department/{id}(id=*{id})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
+								</a></td>
+								 <td><a th:href="@{/delete/{id}(id=*{userId})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{retirement}"></i>
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>
