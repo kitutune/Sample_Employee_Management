@@ -39,8 +39,8 @@
 
 
 							<tr>
-								<td><label th:text="#{updateDate}"></label> <input type="date" class="form-control" th:errorclass="is-invalid" th:field="*{update}">
-									<div class="invalid-feedback" th:errors="*{update}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
+								<td><label th:text="#{updateDate}"></label> <input type="date" class="form-control" th:errorclass="is-invalid" th:field="*{update_day}">
+									<div class="invalid-feedback" th:errors="*{update_day}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
 							<tr>
 								<td><label th:text="#{sectionNumber}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{department.id}">

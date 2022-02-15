@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.form.DemployeeForm;
-import com.example.model.Demployee;
 import com.example.repository.DemployeeRepository;
 import com.example.repository.DepartmentRepository;
 import com.example.service.DepartmentService;
@@ -36,6 +35,7 @@ public class DepartmentController {
     
     @GetMapping ("/departmentlist")
     public String getDepartmentList (Model model) {
+        service.saveDemp ();
         model.addAttribute ("departments", dRepository.findAll ());
         return "departmentlist";
     }
@@ -56,19 +56,24 @@ public class DepartmentController {
     // 部門の社員を編集するページに遷移
     @GetMapping ("/dempedit/{id}")
     public String dEmployeeEdit (@PathVariable Long id, Model model) {
+        service.saveDemp ();
         // 既にその社員の部門データがあるのかを判断
-        Demployee demp = new Demployee ();
-        DemployeeForm dForm = new DemployeeForm ();
-        // System.out.println ("null判定あるの？：" + (deRepository.getById (id) == null));
-        // System.out.println ("エラーですか？：" + (deRepository.getById (id).getUsername ()));
-        // System.out.println ("エラーですか？：" + (deRepository.getById (id).getUsername ()));
-        // if (deRepository.getById (id) == null) {
-        demp = service.setDemp (id);
-        // } else {
-        // demp = deRepository.getById (id);
+        // Demployee demp = null;
+        // try {
+        // deRepository.getById (id);
+        // System.out.println ("getUserIdは：" + (deRepository.getById (id).getUserId
+        // ()));
+        // System.out.println ("getByIdは：" + (deRepository.getById (id)));
+        // } catch (EntityNotFoundException e) {
+        // demp = service.setDemp (id);
+        // var dForm = service.convert (demp);
+        // model.addAttribute ("demployeeForm", dForm);
+        // System.out.println ("エラー");
+        // return "dempedit";
         // }
-        // dForm = service.convert (demp);
-        
+        // System.out.println ("エラーなし");
+        var demp = deRepository.getById (id);
+        var dForm = service.convert (demp);
         model.addAttribute ("demployeeForm", dForm);
         return "dempedit";
     }
@@ -80,9 +85,9 @@ public class DepartmentController {
             return "dempedit";
         }
         // formをDemployeeに変換
-        
+        var demp = service.convert (form);
         // repositoryをsave
-        
+        deRepository.save (demp);
         return "redirect:departmentlist";
     }
     
