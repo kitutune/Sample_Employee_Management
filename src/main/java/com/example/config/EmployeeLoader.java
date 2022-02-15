@@ -45,18 +45,7 @@ public class EmployeeLoader implements CommandLineRunner {
         employee.setGender ("other");
         employee.setComment ("クレヨンしんちゃん");
         emp.save (employee);
-        // Demployee demp = new Demployee ();
         
     }
     
-    // public void run (Demployee demp) throws Exception {
-    // List<Employee> eList = emp.findAll ();
-    // for (Employee emp : eList) {
-    //
-    // demp.setUsername (emp.getUsername ());
-    // demp.setUserId (emp.getUserId ());
-    // }
-    // System.out.println ("成功");
-    // this.demp.save (demp);
-    // }
 }
