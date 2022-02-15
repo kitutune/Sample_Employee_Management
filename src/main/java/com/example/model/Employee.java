@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Entity
 @Data
+// これがないとテーブルの自動生成がされない場合がある様子
 @Table (name = "employee")
 public class Employee {
     // 社員番号
