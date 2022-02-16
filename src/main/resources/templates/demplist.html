@@ -39,9 +39,9 @@ table th {
 					<br /> <a th:href="@{/regist}" type="button" class="btn btn-warning font-weight-bold" th:text="#{newRegist}"> </a> <br /> <br />
 
 				</div>
-			<!-- 	<div class="card-body">
-					<div th:if="${departments.size() == 0}" th:text="#{noData}"></div>
-					<table th:if="${departments.size() > 0}" class="table table-bordered panel-heading btn-primary">
+ 	<div class="card-body">
+					<div th:if="${demployees.size() == 0}" th:text="#{noData}"></div>
+					<table th:if="${demployees.size() > 0}" class="table table-bordered panel-heading btn-primary">
 						<thead>
 							<tr>
 								<th th:text="#{id}"></th>
@@ -56,22 +56,21 @@ table th {
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="department : ${departments}"  th:object="${department}">
-								<td th:text="*{id}"></td>
-								<td th:text="*{department_name}"></td>
-								<td th:text="*{total_sales}"></td>
-								<td th:text="*{total_customers}"></td>
-								<td th:text="*{individual_sales_average}"></td>
-								<td th:text="*{individual_sales_average}"></td>
+							<tr th:each="demployee : ${demployees}"  th:object="${demployee}">
+								<td th:text="*{userId}"></td>
+								<td th:text="*{username}"></td>
+								<td th:text="*{area}"></td>
+								<td th:text="*{customers}"></td>
+								<td th:text="*{update_day}"></td>
 
-								<td><a th:href="@{/department/{id}(id=*{id})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
+								<td><a th:href="@{/dempedit/{id}(id=*{userId})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
 								</a></td>
-								 <td><a th:href="@{/delete/{id}(id=*{userId})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{retirement}"></i>
+								 <td><a th:href="@{/retirement/{id}(id=*{userId})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{retirement}"></i>
 								</a></td>
 							</tr>
 						</tbody>
 					</table>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</div>

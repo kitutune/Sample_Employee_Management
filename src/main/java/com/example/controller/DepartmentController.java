@@ -53,7 +53,9 @@ public class DepartmentController {
     @GetMapping ("/department/{id}")
     public String getDepartmentEmployeeList (@PathVariable Long id, Model model) {
         // 部門Idに一致する社員を取得
-        return "departmentemployeelist";
+        List<Demployee> list = deRepository.findByDepartmentsList (id);
+        model.addAttribute ("demployees", list);
+        return "demplist";
         
     }
     
