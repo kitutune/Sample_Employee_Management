@@ -1,20 +1,27 @@
 package com.example.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 // これがないとテーブルの自動生成がされない場合がある様子
 @Table (name = "demployee")
-public class Demployee {
+@NoArgsConstructor
+public class Demployee implements Serializable {
     @Id
+    // @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long userId;
+    
     private String username;
     // 担当地区
     private String area;
@@ -26,6 +33,6 @@ public class Demployee {
     private String update_day;
     
     @ManyToOne
-    @JoinColumn (name = "id")
+    // @JoinColumn (name = "id")
     private Department department;
 }
