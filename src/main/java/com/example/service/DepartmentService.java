@@ -8,6 +8,7 @@ import com.example.form.DemployeeForm;
 import com.example.model.Demployee;
 import com.example.model.Employee;
 import com.example.repository.DemployeeRepository;
+import com.example.repository.DepartmentRepository;
 import com.example.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,28 +16,29 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class DepartmentService {
-    private final EmployeeRepository emp;
-    private final DemployeeRepository demp;
+    private final EmployeeRepository eRepository;
+    private final DemployeeRepository deRepository;
+    private final DepartmentRepository dRepository;
     
     public List<Demployee> getDemployees () {
-        var empList = emp.findAll ();
+        var empList = eRepository.findAll ();
         List<Demployee> dempList = null;
         Demployee demp = new Demployee ();
         for (Employee emp : empList) {
             demp.setUsername (emp.getUsername ());
             demp.setUserId (emp.getUserId ());
-            this.demp.save (demp);
+            deRepository.save (demp);
         }
-        dempList = this.demp.findAll ();
+        dempList = deRepository.findAll ();
         return dempList;
     }
     
     public Demployee setDemp (Long id) {
-        var emp = this.emp.getById (id);
+        var emp = eRepository.getById (id);
         Demployee demp = new Demployee ();
         demp.setUsername (emp.getUsername ());
         demp.setUserId (emp.getUserId ());
-        this.demp.save (demp);
+        deRepository.save (demp);
         return demp;
     }
     
@@ -68,9 +70,9 @@ public class DepartmentService {
     
     // employeeテーブルのデータをdemployeeテーブルに保存
     public void saveDemp () {
-        if (demp.count () <= 0) {
+        if (deRepository.count () <= 0) {
             Demployee demp = null;
-            List<Employee> eList = emp.findAll ();
+            List<Employee> eList = eRepository.findAll ();
             int i = 0;
             for (Employee emp : eList) {
                 System.out.println (i++);
@@ -79,7 +81,7 @@ public class DepartmentService {
                 demp = new Demployee ();
                 demp.setUsername (emp.getUsername ());
                 demp.setUserId (emp.getUserId ());
-                this.demp.save (demp);
+                deRepository.save (demp);
             }
             System.out.println ("成功");
         } else {
@@ -88,4 +90,33 @@ public class DepartmentService {
         }
     }
     
+    // 売り上げの合計や平均値の計算
+    public void Departmentcalc () {
+        // デパートメントのレコード数
+        for (int i = 1; i <= 4; i++) {
+            int total_sales = 0;
+            int total_people = 0;
+            int individual_sales_average = 0;
+            int count = 0;
+            var demps = deRepository.findByDepartmentsList ((long) i);
+            var department = dRepository.getById ((long) i);
+            for (var demp : demps) {
+                total_sales += demp.getSales ();
+                total_people += demp.getCustomers_held ();
+                count += 1;
+            }
+            System.out.println ("カウントと合計");
+            System.out.println (count);
+            System.out.println (total_sales);
+            System.out.println (count > 0 && total_sales > 0);
+            
+            if (count > 0 && total_sales > 0) {
+                individual_sales_average += (total_sales + count - 1) / count;
+            }
+            department.setTotal_people ((long) total_people);
+            department.setTotal_sales ((long) total_sales);
+            department.setIndividual_sales_average ((long) individual_sales_average);
+            dRepository.save (department);
+        }
+    }
 }
