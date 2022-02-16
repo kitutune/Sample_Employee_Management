@@ -15,19 +15,20 @@ public class DepartmentLoader implements CommandLineRunner {
     
     @Override
     public void run (String... args) throws Exception {
-        // TODO 自動生成されたメソッド・スタブ
-        Department department = new Department ();
-        department.setDepartment_name ("営業一課");
-        repository.save (department);
-        department = new Department ();
-        department.setDepartment_name ("営業二課");
-        repository.save (department);
-        department = new Department ();
-        department.setDepartment_name ("営業三課");
-        repository.save (department);
-        department = new Department ();
-        department.setDepartment_name ("営業四課");
-        repository.save (department);
+        if (repository.count () <= 0) {
+            // TODO 自動生成されたメソッド・スタブ
+            Department department = new Department ();
+            department.setDepartment_name ("営業一課");
+            repository.save (department);
+            department = new Department ();
+            department.setDepartment_name ("営業二課");
+            repository.save (department);
+            department = new Department ();
+            department.setDepartment_name ("営業三課");
+            repository.save (department);
+            department = new Department ();
+            department.setDepartment_name ("営業四課");
+            repository.save (department);
+        }
     }
-    
 }
