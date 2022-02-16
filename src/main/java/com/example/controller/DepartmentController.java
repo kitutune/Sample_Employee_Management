@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.form.DemployeeForm;
+import com.example.model.Demployee;
+import com.example.model.Department;
 import com.example.repository.DemployeeRepository;
 import com.example.repository.DepartmentRepository;
 import com.example.service.DepartmentService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class DepartmentController {
     private final DepartmentRepository dRepository;
     private final DemployeeRepository deRepository;
@@ -36,7 +42,8 @@ public class DepartmentController {
     @GetMapping ("/departmentlist")
     public String getDepartmentList (Model model) {
         service.saveDemp ();
-        model.addAttribute ("departments", dRepository.findAll ());
+        List<Department> list = dRepository.findAll ();
+        model.addAttribute ("departments", list);
         return "departmentlist";
     }
     
@@ -44,8 +51,6 @@ public class DepartmentController {
     @GetMapping ("/department/{id}")
     public String getDepartmentEmployeeList (@PathVariable Long id, Model model) {
         // 部門Idに一致する社員を取得
-        // model.addAttribute ("",)
-        System.out.println ("送られてきたdemployeeはこれ:" + id);
         return "departmentemployeelist";
         
     }
@@ -56,24 +61,11 @@ public class DepartmentController {
     // 部門の社員を編集するページに遷移
     @GetMapping ("/dempedit/{id}")
     public String dEmployeeEdit (@PathVariable Long id, Model model) {
+        // demployeeテーブルにemployeeのテーブルから名前と社員番号を抽出し登録
         service.saveDemp ();
-        // 既にその社員の部門データがあるのかを判断
-        // Demployee demp = null;
-        // try {
-        // deRepository.getById (id);
-        // System.out.println ("getUserIdは：" + (deRepository.getById (id).getUserId
-        // ()));
-        // System.out.println ("getByIdは：" + (deRepository.getById (id)));
-        // } catch (EntityNotFoundException e) {
-        // demp = service.setDemp (id);
-        // var dForm = service.convert (demp);
-        // model.addAttribute ("demployeeForm", dForm);
-        // System.out.println ("エラー");
-        // return "dempedit";
-        // }
-        // System.out.println ("エラーなし");
-        var demp = deRepository.getById (id);
-        var dForm = service.convert (demp);
+        // // 受け取ったIDでdemployeeRepositoryからターゲットを抽出し、formにユーザー名と社員番号を渡す
+        Demployee demp = deRepository.getById (id);
+        DemployeeForm dForm = service.convert (demp);
         model.addAttribute ("demployeeForm", dForm);
         return "dempedit";
     }
@@ -84,9 +76,9 @@ public class DepartmentController {
         if (result.hasErrors ()) {
             return "dempedit";
         }
+        log.info (form.toString ());
         // formをDemployeeに変換
-        var demp = service.convert (form);
-        // repositoryをsave
+        Demployee demp = service.convert (form);
         deRepository.save (demp);
         return "redirect:departmentlist";
     }

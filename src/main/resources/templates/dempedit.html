@@ -14,8 +14,16 @@
 			<div class="panel panel-default">
 				<h4 class="panel-heading btn-primary" style="padding: 10px; text-align: center; height: 50px; margin-bottom: 20px;" th:text="#{registForm}"></h4>
 				<div class="panel-body">
-					<form class="form-horizontal" th:action="@{dempedit}" th:object="${demployeeForm}" method="post">
+					<form class="form-horizontal" th:action="@{/dempedit}" th:object="${demployeeForm}" method="post">
 						<table>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label th:text="#{userId}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{userId}">
+										<div class="invalid-feedback" th:errors="*{userId}"></div>
+									</div>
+								</td>
+							</tr>
 							<tr>
 								<td>
 									<div class="form-group">
@@ -42,10 +50,27 @@
 								<td><label th:text="#{updateDate}"></label> <input type="date" class="form-control" th:errorclass="is-invalid" th:field="*{update_day}">
 									<div class="invalid-feedback" th:errors="*{update_day}"></div> <small class="text-muted" th:text="#{calendarValidate}"></small></td>
 							</tr>
-							<tr>
-								<td><label th:text="#{sectionNumber}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{department.id}">
-									<div class="invalid-feedback" th:errors="*{department.id}"></div> <small class="text-muted" th:text="#{numValidate}"></small></td>
+
+
+							<!-- 			<tr>
+								<td><label th:text="#{sectionNumber}"></label> <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{departmentId}">
+									<div class="invalid-feedback" th:errors="*{departmentId}"></div> <small class="text-muted" th:text="#{numValidate}"></small></td>
 							</tr>
+ -->
+
+							<tr>
+								<td><label th:text="#{sectionNumber}"></label> <select  th:field="*{department}">
+								<th:block
+								th:each="department:${@departmentRepository.findAll()}">
+								<option th:value="${department.id}" th:text="${department.department_name}">
+								</option>
+								</th:block>
+								</select>
+
+								</td>
+							</tr>
+
+
 
 							<tr>
 								<td>

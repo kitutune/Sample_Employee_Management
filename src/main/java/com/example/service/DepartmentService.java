@@ -42,10 +42,12 @@ public class DepartmentService {
     
     public DemployeeForm convert (Demployee demp) {
         DemployeeForm dForm = new DemployeeForm ();
+        
         dForm.setUserId (demp.getUserId ());
         dForm.setUsername (demp.getUsername ());
         dForm.setArea (demp.getArea ());
-        dForm.setSales (demp.getCustomers_held ());
+        dForm.setSales (demp.getSales ());
+        dForm.setCustomers_held (demp.getCustomers_held ());
         dForm.setUpdate_day (demp.getUpdate_day ());
         dForm.setDepartment (demp.getDepartment ());
         return dForm;
@@ -57,24 +59,33 @@ public class DepartmentService {
         demp.setUserId (dForm.getUserId ());
         demp.setUsername (dForm.getUsername ());
         demp.setArea (dForm.getArea ());
-        demp.setSales (dForm.getCustomers_held ());
+        demp.setSales (dForm.getSales ());
+        demp.setCustomers_held (dForm.getCustomers_held ());
         demp.setUpdate_day (dForm.getUpdate_day ());
         demp.setDepartment (dForm.getDepartment ());
         return demp;
-        
     }
     
     // employeeテーブルのデータをdemployeeテーブルに保存
     public void saveDemp () {
-        Demployee demp = new Demployee ();
-        List<Employee> eList = emp.findAll ();
-        for (Employee emp : eList) {
+        if (demp.count () <= 0) {
+            Demployee demp = null;
+            List<Employee> eList = emp.findAll ();
+            int i = 0;
+            for (Employee emp : eList) {
+                System.out.println (i++);
+                System.out.println (emp.getUsername ());
+                
+                demp = new Demployee ();
+                demp.setUsername (emp.getUsername ());
+                demp.setUserId (emp.getUserId ());
+                this.demp.save (demp);
+            }
+            System.out.println ("成功");
+        } else {
             
-            demp.setUsername (emp.getUsername ());
-            demp.setUserId (emp.getUserId ());
-            this.demp.save (demp);
+            System.out.println ("既にある");
         }
-        System.out.println ("成功");
     }
     
 }
