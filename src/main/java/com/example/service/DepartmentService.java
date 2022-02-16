@@ -49,7 +49,7 @@ public class DepartmentService {
         dForm.setUsername (demp.getUsername ());
         dForm.setArea (demp.getArea ());
         dForm.setSales (demp.getSales ());
-        dForm.setCustomers_held (demp.getCustomers_held ());
+        dForm.setCustomers (demp.getCustomers ());
         dForm.setUpdate_day (demp.getUpdate_day ());
         dForm.setDepartment (demp.getDepartment ());
         return dForm;
@@ -62,7 +62,7 @@ public class DepartmentService {
         demp.setUsername (dForm.getUsername ());
         demp.setArea (dForm.getArea ());
         demp.setSales (dForm.getSales ());
-        demp.setCustomers_held (dForm.getCustomers_held ());
+        demp.setCustomers (dForm.getCustomers ());
         demp.setUpdate_day (dForm.getUpdate_day ());
         demp.setDepartment (dForm.getDepartment ());
         return demp;
@@ -115,14 +115,14 @@ public class DepartmentService {
         // デパートメントのレコード数
         for (int i = 1; i <= 4; i++) {
             int total_sales = 0;
-            int total_people = 0;
+            int total_customers = 0;
             int individual_sales_average = 0;
             int count = 0;
             var demps = deRepository.findByDepartmentsList ((long) i);
             var department = dRepository.getById ((long) i);
             for (var demp : demps) {
                 total_sales += demp.getSales ();
-                total_people += demp.getCustomers_held ();
+                total_customers += demp.getCustomers ();
                 count += 1;
             }
             System.out.println ("カウントと合計");
@@ -133,7 +133,7 @@ public class DepartmentService {
             if (count > 0 && total_sales > 0) {
                 individual_sales_average += (total_sales + count - 1) / count;
             }
-            department.setTotal_people ((long) total_people);
+            department.setTotal_customers ((long) total_customers);
             department.setTotal_sales ((long) total_sales);
             department.setIndividual_sales_average ((long) individual_sales_average);
             dRepository.save (department);

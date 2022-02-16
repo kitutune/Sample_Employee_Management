@@ -21,7 +21,7 @@ public class DemployeeForm {
     private Long sales;
     // 保有顧客数 Number of customers held
     @NotNull (message = "必須入力です")
-    private Long customers_held;
+    private Long customers;
     // 更新日時
     private String update_day;
     

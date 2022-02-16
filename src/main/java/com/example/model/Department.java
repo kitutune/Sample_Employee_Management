@@ -28,7 +28,7 @@ public class Department implements Serializable {
     private Long total_sales;
     
     // Total number of people
-    private Long total_people;
+    private Long total_customers;
     // Individual sales average
     private Long individual_sales_average;
     

@@ -59,10 +59,10 @@ table th {
 								<td th:text="*{id}"></td>
 								<td th:text="*{department_name}"></td>
 								<td th:text="*{total_sales}"></td>
-								<td th:text="*{total_people}"></td>
+								<td th:text="*{total_customers}"></td>
 								<td th:text="*{individual_sales_average}"></td>
 
-								<td><a th:href="@{/department/{id}(id=*{department.id})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
+								<td><a th:href="@{/department/{id}(id=*{id})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
 								</a></td>
 								<!-- <td><a th:href="@{/delete/{id}(id=*{userId})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{delete}"></i>
 								</a></td> -->

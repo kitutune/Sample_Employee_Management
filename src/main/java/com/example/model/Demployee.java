@@ -28,7 +28,7 @@ public class Demployee implements Serializable {
     // 売上
     private Long sales;
     // 保有顧客数 Number of customers held
-    private Long customers_held;
+    private Long customers;
     // 更新日時
     private String update_day;
     
