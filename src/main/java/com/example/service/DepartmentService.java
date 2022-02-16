@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -50,20 +52,24 @@ public class DepartmentService {
         dForm.setArea (demp.getArea ());
         dForm.setSales (demp.getSales ());
         dForm.setCustomers (demp.getCustomers ());
-        dForm.setUpdate_day (demp.getUpdate_day ());
+        // dForm.setUpdate_day (demp.getUpdate_day ());
         dForm.setDepartment (demp.getDepartment ());
         return dForm;
         
     }
     
     public Demployee convert (DemployeeForm dForm) {
+        LocalDate date = LocalDate.now ();
+        // java.time.LocalDateからStringに変換する
+        String now = date.format (DateTimeFormatter.ofPattern ("yyyy-MM-dd"));
+        
         Demployee demp = new Demployee ();
         demp.setUserId (dForm.getUserId ());
         demp.setUsername (dForm.getUsername ());
         demp.setArea (dForm.getArea ());
         demp.setSales (dForm.getSales ());
         demp.setCustomers (dForm.getCustomers ());
-        demp.setUpdate_day (dForm.getUpdate_day ());
+        demp.setUpdate_day (now);
         demp.setDepartment (dForm.getDepartment ());
         return demp;
     }
