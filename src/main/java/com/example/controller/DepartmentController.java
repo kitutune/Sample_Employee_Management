@@ -41,7 +41,7 @@ public class DepartmentController {
     
     @GetMapping ("/departmentlist")
     public String getDepartmentList (Model model) {
-        service.saveDemp ();
+        service.makeDempList ();
         // ここで合計売上・合計人数・１人あたりの売上平均値を計算するメソッドをサービスで
         service.Departmentcalc ();
         List<Department> list = dRepository.findAll ();
@@ -63,10 +63,8 @@ public class DepartmentController {
     // 部門の社員を編集するページに遷移
     @GetMapping ("/dempedit/{id}")
     public String dEmployeeEdit (@PathVariable Long id, Model model) {
-        // demployeeテーブルにemployeeのテーブルから名前と社員番号を抽出し登録
-        service.saveDemp ();
-        // // 受け取ったIDでdemployeeRepositoryからターゲットを抽出し、formにユーザー名と社員番号を渡す
-        Demployee demp = deRepository.getById (id);
+        
+        Demployee demp = service.editDemp (id);
         DemployeeForm dForm = service.convert (demp);
         model.addAttribute ("demployeeForm", dForm);
         return "dempedit";

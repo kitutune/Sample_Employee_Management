@@ -69,25 +69,45 @@ public class DepartmentService {
     }
     
     // employeeテーブルのデータをdemployeeテーブルに保存
-    public void saveDemp () {
-        if (deRepository.count () <= 0) {
-            Demployee demp = null;
-            List<Employee> eList = eRepository.findAll ();
-            int i = 0;
-            for (Employee emp : eList) {
-                System.out.println (i++);
-                System.out.println (emp.getUsername ());
-                
-                demp = new Demployee ();
-                demp.setUsername (emp.getUsername ());
-                demp.setUserId (emp.getUserId ());
-                deRepository.save (demp);
+    public void makeDempList () {
+        // if (deRepository.count () <= 0) {
+        Demployee demp = new Demployee ();
+        List<Employee> eList = eRepository.findAll ();
+        for (Employee emp : eList) {
+            Long userId = emp.getUserId ();
+            if (deRepository.existsById (userId)) {
+                demp = deRepository.getById (userId);
+            } else {
+                demp.setUserId (eRepository.getById (userId).getUserId ());
+                demp.setUsername (eRepository.getById (userId).getUsername ());
             }
-            System.out.println ("成功");
-        } else {
-            
-            System.out.println ("既にある");
+            deRepository.save (demp);
         }
+    }
+    
+    // employeeテーブルのデータをdemployeeテーブルに保存
+    public Demployee editDemp (Long id) {
+        Demployee demp = new Demployee ();
+        if (deRepository.existsById (id)) {
+            demp = deRepository.getById (id);
+        } else {
+            demp.setUserId (eRepository.getById (id).getUserId ());
+            demp.setUsername (eRepository.getById (id).getUsername ());
+        }
+        return demp;
+        
+        // Demployee demp = null;
+        // List<Employee> eList = eRepository.findAll ();
+        // int i = 0;
+        // for (Employee emp : eList) {
+        // System.out.println (i++);
+        // System.out.println (emp.getUsername ());
+        //
+        // demp = new Demployee ();
+        // demp.setUsername (emp.getUsername ());
+        // demp.setUserId (emp.getUserId ());
+        // deRepository.save (demp);
+        // }
     }
     
     // 売り上げの合計や平均値の計算
