@@ -33,11 +33,47 @@ table td {
 </head>
 <body>
 
+	<script type="text/javascript">
+		function entryChange1() {
+			radio = document.getElementsByName("entryPlan");
+			if (radio[0].checked) {
+				//フォーム
+				document.getElementById("firstBox").style.display = "";
+				document.getElementById("secondBox").style.display = "none";
+				document.getElementById("thirdBox").style.display = "none";
+			} else if (radio[1].checked) {
+				//フォーム
+				document.getElementById("firstBox").style.display = "none";
+				document.getElementById("secondBox").style.display = "";
+				document.getElementById("thirdBox").style.display = "none";
+			} else if (radio[2].checked) {
+				document.getElementById("firstBox").style.display = "none";
+				document.getElementById("secondBox").style.display = "none";
+				document.getElementById("thirdBox").style.display = "";
+			}
+		}
+
+		//オンロードさせ、リロード時に選択を保持
+		window.onload = entryChange1;
+	</script>
 
 
 
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Launch demo modal</button>
+	<!--  -->
+	<table>
+		<tr>
+			<th>どれにしますか？</th>
+			<td>
+			<label> <input type="radio" name="entryPlan" value="hoge1" onclick="entryChange1();" checked="checked" />全て
+			</label>
+			 <label> <input type="radio" name="entryPlan" value="hoge2" onclick="entryChange1();" />在籍
+			</label>
+			 <label> <input type="radio" name="entryPlan" value="hoge3" onclick="entryChange1();" />退社
+			</label></td>
+		</tr>
+		<!-- 表示非表示切り替え -->
+	</table>
+	<!--  -->
 
 
 	<div class="row">
@@ -50,6 +86,7 @@ table td {
 				<div class="card-body">
 					<div th:if="${demployees.size() == 0}" th:text="#{noData}"></div>
 					<table th:if="${demployees.size() > 0}" class="table table-bordered panel-heading btn-primary">
+
 						<thead>
 							<tr>
 								<th th:text="#{id}"></th>
@@ -62,8 +99,9 @@ table td {
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="firstBox">
 							<tr th:each="demployee : ${demployees}" th:object="${demployee}" th:classappend="${demployee.in_office} ? bg-normal : bg-disable">
+								<td>1</td>
 								<td th:text="*{userId}"></td>
 								<td th:text="*{username}"></td>
 								<td th:text="*{area}"></td>
@@ -75,11 +113,41 @@ table td {
 								<td th:if="*{ in_office== false}"><button th:disabled="*{ in_office== false}" class="btn btn-danger" th:text="#{retirement}"></button></td>
 							</tr>
 						</tbody>
+						<tbody id="secondBox">
+							<tr th:each="demployee : ${demployees}" th:object="${demployee}" th:classappend="${demployee.in_office} ? bg-normal : bg-disable">
+								<td>2</td>
+								<td th:text="*{userId}"></td>
+								<td th:text="*{username}"></td>
+								<td th:text="*{area}"></td>
+								<td th:text="*{sales}"></td>
+								<td th:text="*{customers}"></td>
+								<td th:text="*{update_day}"></td>
+								<td><input type="button" th:disabled="*{ in_office== false}" th:onclick="|location.href='@{/dempedit/{id}(id=__*{userId}__)}'|" class="btn btn-success" th:value="#{edit}"></td>
+								<td th:if="*{ in_office== true}"><a th:href="@{/retirement/{id}(id=*{userId})}" onclick="return confirm('この作業は修正できません。本当によろしいですか。')" class="btn btn-danger" th:text="#{retirement}"></a></td>
+								<td th:if="*{ in_office== false}"><button th:disabled="*{ in_office== false}" class="btn btn-danger" th:text="#{retirement}"></button></td>
+							</tr>
+						</tbody>
+						<tbody id="thirdBox">
+							<tr th:each="demployee : ${demployees}" th:object="${demployee}" th:classappend="${demployee.in_office} ? bg-normal : bg-disable">
+								<td>３</td>
+								<td th:text="*{userId}"></td>
+								<td th:text="*{username}"></td>
+								<td th:text="*{area}"></td>
+								<td th:text="*{sales}"></td>
+								<td th:text="*{customers}"></td>
+								<td th:text="*{update_day}"></td>
+								<td><input type="button" th:disabled="*{ in_office== false}" th:onclick="|location.href='@{/dempedit/{id}(id=__*{userId}__)}'|" class="btn btn-success" th:value="#{edit}"></td>
+								<td th:if="*{ in_office== true}"><a th:href="@{/retirement/{id}(id=*{userId})}" onclick="return confirm('この作業は修正できません。本当によろしいですか。')" class="btn btn-danger" th:text="#{retirement}"></a></td>
+								<td th:if="*{ in_office== false}"><button th:disabled="*{ in_office== false}" class="btn btn-danger" th:text="#{retirement}"></button></td>
+							</tr>
+						</tbody>
+
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<!-- Optional JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
