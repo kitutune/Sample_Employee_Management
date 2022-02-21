@@ -31,7 +31,8 @@ public class Demployee implements Serializable {
     private Long customers;
     // 更新日時
     private String update_day;
-    
+    // 在籍しているか否か（在籍を）
+    private boolean in_office;
     @ManyToOne
     // @JoinColumn (name = "id")
     private Department department;
