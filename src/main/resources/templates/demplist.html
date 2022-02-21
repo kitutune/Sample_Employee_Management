@@ -8,7 +8,6 @@
 <style>
 table {
 	width: 100%;
-	border-collapse: collapse;
 	font-size: 16px;
 }
 
@@ -20,26 +19,68 @@ table th, table td {
 }
 
 table td {
-	background-color: #F2F2F2;
 	color: black;
 }
 
-table th {
-	/* background-color: #F2F2F2; */
+.bg-disable {
+	background-color: #c0c0c0 !important;
+}
 
+.bg-normal {
+	background-color: #F2F2F2 !important;
 }
 </style>
 </head>
 <body>
+
+	<script type="text/javascript">
+		$('#myModal')
+				.on(
+						'shown.bs.modal',
+						function(e) {
+							const url = new URL(
+									'https://user1:pwd@www.example.com:8080/dir1/?=xyz&def=zzz#3')
+							console.log(url)
+							console.log($(e.relatedTarget)); // You will get the element you want! Cheers
+
+							$('#myInput').trigger('focus')
+						})
+	</script>
+
+
+
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Launch demo modal</button>
+
+	<!--  Modal -->
+	<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">「この作業は修正できません。本当によろしいですか。」</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" id="signup-submit-button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+
+
 	<div class="row">
 		<div class="col">
 			<div class="card shadow">
 				<div class="card-header">
 					<h2 class="text-navy my-2" th:text="#{employeeList}"></h2>
 					<br /> <a th:href="@{/regist}" type="button" class="btn btn-warning font-weight-bold" th:text="#{newRegist}"> </a> <br /> <br />
-
 				</div>
- 	<div class="card-body">
+				<div class="card-body">
 					<div th:if="${demployees.size() == 0}" th:text="#{noData}"></div>
 					<table th:if="${demployees.size() > 0}" class="table table-bordered panel-heading btn-primary">
 						<thead>
@@ -50,23 +91,21 @@ table th {
 								<th th:text="#{sales}"></th>
 								<th th:text="#{numberOfCustomers}"></th>
 								<th th:text="#{updateDate}"></th>
-
 								<th></th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="demployee : ${demployees}"  th:object="${demployee}">
+							<tr th:each="demployee : ${demployees}" th:object="${demployee}" th:classappend="${demployee.in_office} ? bg-normal : bg-disable">
 								<td th:text="*{userId}"></td>
 								<td th:text="*{username}"></td>
 								<td th:text="*{area}"></td>
+								<td th:text="*{sales}"></td>
 								<td th:text="*{customers}"></td>
 								<td th:text="*{update_day}"></td>
-
-								<td><a th:href="@{/dempedit/{id}(id=*{userId})}" class="btn btn-success"> <i class="bi bi-pencil-square" th:text="#{edit}"></i>
-								</a></td>
-								 <td><a th:href="@{/retirement/{id}(id=*{userId})}" class="btn btn-danger"> <i class="bi bi-trash-fill" th:text="#{retirement}"></i>
-								</a></td>
+								<td><input type="button" th:disabled="*{ in_office== false}" th:onclick="|location.href='@{/dempedit/{id}(id=__*{userId}__)}'|" class="btn btn-success" th:value="#{edit}"></td>
+								<td th:if="*{ in_office== true}"><a th:href="@{/retirement/{id}(id=*{userId})}" onclick="return confirm('この作業は修正できません。本当によろしいですか。')" class="btn btn-danger" th:text="#{retirement}"></a></td>
+								<td th:if="*{ in_office== false}"><button th:disabled="*{ in_office== false}" class="btn btn-danger" th:text="#{retirement}"></button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -74,5 +113,9 @@ table th {
 			</div>
 		</div>
 	</div>
+	<!-- Optional JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
