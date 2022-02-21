@@ -33,19 +33,6 @@ table td {
 </head>
 <body>
 
-	<script type="text/javascript">
-		$('#myModal')
-				.on(
-						'shown.bs.modal',
-						function(e) {
-							const url = new URL(
-									'https://user1:pwd@www.example.com:8080/dir1/?=xyz&def=zzz#3')
-							console.log(url)
-							console.log($(e.relatedTarget)); // You will get the element you want! Cheers
-
-							$('#myInput').trigger('focus')
-						})
-	</script>
 
 
 
