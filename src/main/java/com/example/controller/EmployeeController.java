@@ -38,10 +38,8 @@ public class EmployeeController {
     @GetMapping ("/")
     public String getList (@ModelAttribute GetSearchWord word, Model model) {
         model.addAttribute ("employees", repository.findAll ());
-        // model.addAttribute ("employees", repository.namesearch ("tensai"));
         // 検索用
         model.addAttribute ("genderList", eService.getGenderList ());
-        // model.addAttribute ("getSearchWord", null);
         
         System.out.println ("ここはホーム");
         return "list";
@@ -49,7 +47,7 @@ public class EmployeeController {
     
     @PostMapping ("/search")
     public String getSearch (@ModelAttribute GetSearchWord word, Model model) {
-        log.info (word.toString ());
+        // log.info (word.toString ());
         model.addAttribute ("employees", repository.search (word.getName (), word.getGender (),
                 word.getGetJoinDateFrom (), word.getGetJoinDateTo ()));
         // 検索用
@@ -69,7 +67,7 @@ public class EmployeeController {
     
     @PostMapping ("/regist")
     public String registEmployee (@Validated @ModelAttribute EmployeeForm form, BindingResult result, Model model) {
-        log.info (form.toString ());
+        // log.info (form.toString ());
         if (result.hasErrors ()) {
             model.addAttribute ("genderList", eService.getGenderList ());
             return "regist";
