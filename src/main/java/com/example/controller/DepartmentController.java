@@ -78,11 +78,25 @@ public class DepartmentController {
         if (result.hasErrors ()) {
             return "dempedit";
         }
-        log.info (form.toString ());
+        // log.info (form.toString ());
         // formをDemployeeに変換
         Demployee demp = service.convert (form);
         deRepository.save (demp);
         return "redirect:departmentlist";
+    }
+    
+    // 部門の社員を退職させる
+    @GetMapping ("/retirement/{id}")
+    public String dEmployeeRetire (@PathVariable Long id, Model model) {
+        Demployee demp = deRepository.getById (id);
+        if (demp.isIn_office () == true) {
+            demp.setIn_office (false);
+            deRepository.save (demp);
+            // log.info (demp.toString ());
+        }
+        List<Demployee> list = deRepository.findByDepartmentsList (demp.getDepartment ().getId ());
+        model.addAttribute ("demployees", list);
+        return "/demplist";
     }
     
 }

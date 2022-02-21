@@ -86,6 +86,7 @@ public class DepartmentService {
             } else {
                 demp.setUserId (eRepository.getById (userId).getUserId ());
                 demp.setUsername (eRepository.getById (userId).getUsername ());
+                demp.setIn_office (true);
             }
             deRepository.save (demp);
         }
@@ -99,21 +100,10 @@ public class DepartmentService {
         } else {
             demp.setUserId (eRepository.getById (id).getUserId ());
             demp.setUsername (eRepository.getById (id).getUsername ());
+            demp.setIn_office (true);
         }
         return demp;
         
-        // Demployee demp = null;
-        // List<Employee> eList = eRepository.findAll ();
-        // int i = 0;
-        // for (Employee emp : eList) {
-        // System.out.println (i++);
-        // System.out.println (emp.getUsername ());
-        //
-        // demp = new Demployee ();
-        // demp.setUsername (emp.getUsername ());
-        // demp.setUserId (emp.getUserId ());
-        // deRepository.save (demp);
-        // }
     }
     
     // 売り上げの合計や平均値の計算
